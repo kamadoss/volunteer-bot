@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+/** @var \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder */
+
+declare(strict_types=1);
+
+use App\Console\Application;
+
+require 'bootstrap/app.php';
+
+$application = $containerBuilder->get(Application::class);
+
+exit($application->run());
