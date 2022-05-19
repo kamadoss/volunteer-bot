@@ -10,6 +10,6 @@ class BlackListToStringTransformer
 {
     public function transform(BlackList $blackList): string
     {
-        return implode("\n", $blackList->getBlackListedNumbers());
+        return implode(PHP_EOL, $blackList->getBlackListedNumbers());
     }
 }

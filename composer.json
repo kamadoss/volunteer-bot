@@ -1,13 +1,9 @@
 {
     "name": "kamadoss/volunteer-bot",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
     "minimum-stability": "stable",
     "require": {
+        "php": "^8.1",
         "symfony/dependency-injection": "^5.4",
         "symfony/console": "^5.4"
     },
@@ -15,6 +11,16 @@
         "phpunit/phpunit": "9.5.x-dev",
         "squizlabs/php_codesniffer": "^3.6",
         "phpmd/phpmd": "^2.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "config": {
         "preferred-install": "dist"

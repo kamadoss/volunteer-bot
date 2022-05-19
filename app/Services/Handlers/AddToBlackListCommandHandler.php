@@ -5,42 +5,56 @@ declare(strict_types=1);
 namespace App\Services\Handlers;
 
 use App\Models\Message;
+use App\Services\Helpers\Phone;
 use App\Services\Repositories\BlackListRepositoryInterface;
 use App\Services\DTO\ProcessingResult;
 use App\Services\Events\EventDispatcherInterface;
 
 class AddToBlackListCommandHandler implements HandlerInterface
 {
-    private const PHONE_REGEX = '/^\+?\d{9,15}$/';
-
     public function __construct(
-        private BlackListRepositoryInterface $repository,
-        private EventDispatcherInterface $dispatcher,
+        private readonly BlackListRepositoryInterface $repository,
+        private readonly EventDispatcherInterface $dispatcher,
     ) {
     }
 
     public function handle(Message $message): ProcessingResult
     {
-        $phone = trim($message->getText());
+        $phones = Phone::getAllNormalizedFromText($message->getText());
 
-        if (!preg_match(self::PHONE_REGEX, $phone)) {
+        if (empty($phones)) {
             return new ProcessingResult(
                 ProcessingResult::RESULT_ERROR,
                 'Error: phone is missing or has an invalid format'
             );
         }
 
-        $this->repository->putToBlackList($phone);
-        $this->dispatcher->dispatch('phone.added_to_blacklist_by_command', ['phone' => $phone]);
+        foreach ($phones as $onePhone) {
+            $this->repository->putToBlackList($onePhone);
+        }
+
+        $this->dispatcher->dispatch('phone.added_to_blacklist_by_command', ['phones' => $phones]);
 
         return new ProcessingResult(
             ProcessingResult::RESULT_OK,
-            sprintf('Phone number %s has been added to the blacklist', $phone)
+            $this->getSuccessTextForPhones($phones)
         );
     }
 
     public function isResponsible(Message $message): bool
     {
         return $message->isCommand() && $message->getCommandName() === Message::COMMAND_ADD_TO_BLACKLIST;
+    }
+
+    private function getSuccessTextForPhones(array $phones): string
+    {
+        $isSinglePhone = count($phones) === 1;
+
+        return sprintf(
+            'The following phone %s %s been added to the blacklist: %s',
+            $isSinglePhone ? 'number' : 'numbers',
+            $isSinglePhone ? 'has' : 'have',
+            implode(', ', $phones)
+        );
     }
 }

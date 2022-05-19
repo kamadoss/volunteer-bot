@@ -11,8 +11,10 @@ class ProcessingResult
         RESULT_WARNING = 'warning',
         RESULT_ERROR = 'error';
 
-    public function __construct(private string $resultCode = self::RESULT_OK, private ?string $textToAnswer = null)
-    {
+    public function __construct(
+        private readonly string $resultCode = self::RESULT_OK,
+        private readonly ?string $textToAnswer = null
+    ) {
     }
 
     public function getTextToAnswer(): ?string

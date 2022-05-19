@@ -9,7 +9,7 @@ class BlackList
     /**
      * @param string[] $blackListedNumbers
      */
-    public function __construct(private array $blackListedNumbers)
+    public function __construct(private readonly array $blackListedNumbers)
     {
     }
 
