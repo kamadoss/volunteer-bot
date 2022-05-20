@@ -11,9 +11,9 @@ use App\Services\Handlers\BlackListCommandHandler;
 use App\Services\Repositories\BlackListRepositoryInterface;
 use App\Services\Transformers\BlackListToStringTransformer;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\TestCase;
+use Tests\Unit\AbstractTestCase;
 
-class BlackListCommandHandlerTest extends TestCase
+class BlackListCommandHandlerTest extends AbstractTestCase
 {
     public function testNotResponsibleForRandomMessage(): void
     {
@@ -58,7 +58,7 @@ class BlackListCommandHandlerTest extends TestCase
         $cmd = new Message(
             id: 'msg_id',
             source: 'viber',
-            text: "Any text",
+            text: 'Any text',
             commandName: Message::COMMAND_BLACKLIST,
         );
 
@@ -81,7 +81,7 @@ class BlackListCommandHandlerTest extends TestCase
         $cmd = new Message(
             id: 'msg_id_2',
             source: 'facebook',
-            text: "Any text",
+            text: 'Any text',
             parentMessage: $randomMsg,
             commandName: Message::COMMAND_BLACKLIST,
         );
@@ -107,7 +107,7 @@ class BlackListCommandHandlerTest extends TestCase
         $cmd = new Message(
             id: 'msg_id',
             source: 'viber',
-            text: "Any text",
+            text: 'Any text',
             commandName: Message::COMMAND_BLACKLIST,
         );
 

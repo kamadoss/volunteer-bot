@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Services\Handlers;
 
 use App\Models\Message;
-use App\Models\Order;
-use App\Services\Repositories\OrdersRepositoryInterface;
 use App\Services\DTO\ProcessingResult;
 use App\Services\Events\EventDispatcherInterface;
+use App\Services\Repositories\OrdersRepositoryInterface;
 
 class CancelOrderCommandHandler implements HandlerInterface
 {
     public function __construct(
-        private OrdersRepositoryInterface $repository,
-        private EventDispatcherInterface $dispatcher,
+        private readonly OrdersRepositoryInterface $repository,
+        private readonly EventDispatcherInterface $dispatcher,
     ) {
     }
 

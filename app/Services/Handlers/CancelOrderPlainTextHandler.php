@@ -13,8 +13,8 @@ use App\Services\Events\EventDispatcherInterface;
 class CancelOrderPlainTextHandler extends AbstractKeyWordReplyHandler
 {
     public function __construct(
-        private OrdersRepositoryInterface $repository,
-        private EventDispatcherInterface $dispatcher
+        private readonly OrdersRepositoryInterface $repository,
+        private readonly EventDispatcherInterface $dispatcher
     ) {
     }
 

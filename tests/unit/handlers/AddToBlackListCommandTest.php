@@ -10,9 +10,9 @@ use App\Services\Events\EventDispatcherInterface;
 use App\Services\Handlers\AddToBlackListCommandHandler;
 use App\Services\Repositories\BlackListRepositoryInterface;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\TestCase;
+use Tests\Unit\AbstractTestCase;
 
-class AddToBlackListCommandTest extends TestCase
+class AddToBlackListCommandTest extends AbstractTestCase
 {
     public function testNotResponsibleForRandomMessage(): void
     {
@@ -57,7 +57,7 @@ class AddToBlackListCommandTest extends TestCase
         $cmd = new Message(
             id: 'msg_id',
             source: 'viber',
-            text: "Any text",
+            text: 'Any text',
             commandName: Message::COMMAND_ADD_TO_BLACKLIST,
         );
 
@@ -80,7 +80,7 @@ class AddToBlackListCommandTest extends TestCase
         $cmd = new Message(
             id: 'msg_id_2',
             source: 'facebook',
-            text: "Any text",
+            text: 'Any text',
             parentMessage: $randomMsg,
             commandName: Message::COMMAND_ADD_TO_BLACKLIST,
         );

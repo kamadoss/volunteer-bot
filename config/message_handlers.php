@@ -22,7 +22,11 @@ return [
         'canceled',
         'cancel',
         'closed',
+        'close',
         'removed',
+        'remove',
+        'deleted',
+        'delete',
     ],
     'finish_order_keywords' => [
         'finished',
